@@ -1,0 +1,78 @@
+//px→vw変換
+$viewport_pc: 2560; // 基準となるビューポート
+
+@function ppx($num_pc, $width_pc: $viewport_pc) {
+    @return (1vw * $num_pc / $width_pc * 100);
+}
+
+$viewport_sp: 720; // 基準となるビューポート
+
+@function spx($num_sp, $width_sp: $viewport_sp) {
+    @return (1vw * $num_sp / $width_sp * 100);
+}
+
+// line-height変換
+@function lh($lhnum, $snum) {
+    @return ($lhnum/$snum);
+}
+
+// メディアクエリ設定
+$pc: 1024px; // PC
+$tab: 834px; // タブレット
+$sp: 480px; // スマホ
+
+@mixin pc {
+    @media (max-width: ($pc)) {
+        @content;
+    }
+}
+
+@mixin tab {
+    @media (max-width: ($tab)) {
+        @content;
+    }
+}
+
+@mixin sp {
+    @media (max-width: ($sp)) {
+        @content;
+    }
+}
+
+@mixin hover {
+    @media (hover: hover) {
+        @content;
+    }
+}
+
+// .pc.sp表示設定
+.pc {
+    display: block;
+
+    @include sp {
+        display: none;
+    }
+}
+
+.sp {
+    display: none;
+
+    @include sp {
+        display: block;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+    // scroll-padding-top: 2vw;
+    // @include tab {
+    //     scroll-padding-top: 4vw;
+    // }
+    // @include sp {
+    //     scroll-padding-top: 5vw;
+    // }
+}
+
+.section {
+    scroll-margin-top: 80px; /* ヘッダー上部固定の場合はここで調整 */
+}
